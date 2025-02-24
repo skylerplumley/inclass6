@@ -79,6 +79,20 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
+  Color backgroundchange(int age) {
+    if (age <= 12) {
+      return Colors.lightBlue;
+    } else if (age <= 19) {
+      return Colors.lime;
+    } else if (age <= 30) {
+      return Colors.yellow;
+    } else if (age <= 50) {
+      return Colors.orange;
+    } else {
+      return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,34 +100,37 @@ class MyHomePage extends StatelessWidget {
         title: const Text('Age Counter'),
         backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Consumer<Counter>(
-              builder: (context, counter, child) => Text(
-                'I am ${counter.age} years old',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ),
-            const SizedBox(height: 30),
-            Column(
+      body: Consumer<Counter>(
+        builder: (context, counter, child) => Container(
+          color: backgroundchange(counter.age),
+          child: Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FloatingActionButton.large(
-                  onPressed: () => context.read<Counter>().increment(),
-                  tooltip: 'Increase Age',
-                  child: const Text('Increase Age'),
+                Text(
+                  'I am ${counter.age} years old',
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 30),
-                FloatingActionButton.large(
-                  onPressed: () => context.read<Counter>().decrement(),
-                  tooltip: 'Decrease Age',
-                  child: const Text('Decrease Age'),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FloatingActionButton.large(
+                      onPressed: () => context.read<Counter>().increment(),
+                      tooltip: 'Increase Age',
+                      child: const Text('Increase Age'),
+                    ),
+                    const SizedBox(height: 30),
+                    FloatingActionButton.large(
+                      onPressed: () => context.read<Counter>().decrement(),
+                      tooltip: 'Decrease Age',
+                      child: const Text('Decrease Age'),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
