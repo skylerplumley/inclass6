@@ -93,6 +93,20 @@ class MyHomePage extends StatelessWidget {
     }
   }
 
+  String message(int age) {
+    if (age <= 12) {
+      return "You're a child!";
+    } else if (age <= 19) {
+      return "Teenager time!";
+    } else if (age <= 30) {
+      return "You're a young adult!";
+    } else if (age <= 50) {
+      return "You're an adult now!";
+    } else {
+      return "Golden years!";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,6 +121,10 @@ class MyHomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text(
+                  message(counter.age),
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
                 Text(
                   'I am ${counter.age} years old',
                   style: Theme.of(context).textTheme.headlineMedium,
