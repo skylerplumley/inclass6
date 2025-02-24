@@ -58,6 +58,11 @@ class Counter with ChangeNotifier {
     age -= 1;
     notifyListeners();
   }
+
+  void setage(double ages) {
+    age = ages.toInt();
+    notifyListeners();
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -90,6 +95,16 @@ class MyHomePage extends StatelessWidget {
       return Colors.orange;
     } else {
       return Colors.grey;
+    }
+  }
+
+  Color slidercolor(int age) {
+    if (age <= 33) {
+      return Colors.green;
+    } else if (age <= 67) {
+      return Colors.yellow;
+    } else {
+      return Colors.red;
     }
   }
 
@@ -145,6 +160,16 @@ class MyHomePage extends StatelessWidget {
                       child: const Text('Decrease Age'),
                     ),
                   ],
+                ),
+                const SizedBox(height: 20),
+                Slider(
+                  value: counter.age.toDouble(),
+                  min: 0,
+                  max: 99,
+                  activeColor: slidercolor(counter.age),
+                  onChanged: (value) {
+                    context.read<Counter>().setage(value);
+                  },
                 ),
               ],
             ),
